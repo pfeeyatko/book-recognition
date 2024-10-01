@@ -12,6 +12,10 @@
   "dependencies": {
     "nuxt": "^3.13.0",
     "vue": "latest",
+    "vue-barcode-reader": "^1.0.3",
     "vue-router": "latest"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^6.12.1"
   }
 }
