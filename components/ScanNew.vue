@@ -52,6 +52,6 @@
             <p class="text-center">Input Value: {{ isbn || "Nothing" }}</p>
         </div>
         </ClientOnly>
-        <LazyUIModal v-if="openConfirmations && book" :book="book" @save="saveBookToSheet" @close="resetBarcode"/>
+        <LazyUIModal v-if="openConfirmations && book" :book="book" @save="saveBookToSheet" actionName="Add to Store" @close="resetBarcode"/>
     </div>
 </template>
