@@ -37,8 +37,14 @@ const closeModal = () => {
                   <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                     <DialogTitle as="h3" class="text-base font-semibold leading-6 text-gray-900">Book Details</DialogTitle>
                     <div class="mt-2">
-                      <p class="text-sm text-gray-500">
-                        {{ book }}
+                      <p v-if="book.error">
+                        {{ book.message }}
+                      </p>
+                      <p v-else class="text-sm text-gray-500" >
+                        <strong>Title: </strong>{{ book.title }}<br/>
+                        <strong>Author: </strong>{{ book.author?.join(', ') }}<br/>
+                        <strong>Published: </strong>{{ book.yearPublished?.join(', ') }}<br/>
+                        <strong>Genre: </strong>{{ book.genre?.join(', ') }}<br/>
                       </p>
                     </div>
                   </div>
