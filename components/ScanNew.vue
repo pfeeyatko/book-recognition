@@ -31,7 +31,8 @@
           title: book.value?.title,
           isbn: isbn.value,
           author: book.value?.author,
-          published: book.value?.yearPublished?.join(', '),
+          subject: book.value?.subject?.join(', '),
+          published: book.value?.yearPublished.sort()[0]
         });
         emit('bookAdded');
         resetBarcode();

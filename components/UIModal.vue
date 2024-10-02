@@ -44,7 +44,7 @@ const closeModal = () => {
                         <strong>Title: </strong>{{ book.title }}<br/>
                         <strong>Author: </strong>{{ book.author?.join(', ') }}<br/>
                         <strong>Published: </strong>{{ book.yearPublished?.sort()[0] }}<br/>
-                        <strong>Genre: </strong>{{ book.genre?.join(', ') }}<br/>
+                        <strong>Genre: </strong>{{ book.subject?.join(', ') }}<br/>
                       </p>
                     </div>
                   </div>
