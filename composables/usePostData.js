@@ -5,9 +5,11 @@ export default function usePostData() {
             //
         };
     }
+    const isLoading = ref(false);
 
     const postData = async (payload) => {
         try {
+            isLoading.value = true;
             const response = await $fetch('/api/sendToSheet', {
                 method: 'POST',
                 headers: {
@@ -19,9 +21,10 @@ export default function usePostData() {
             if (response.status !== 'success') {
                 throw new Error(response.message || 'Unknown error occurred.');
             }
-
+            isLoading.value = false;
             return response;
         } catch (error) {
+            isLoading.value = false;
             throw new Error(error || 'Unknown error occurred.');
         }
     }
@@ -29,5 +32,6 @@ export default function usePostData() {
     return {
       mapDetailsFromOpenLibrary,
       postData,
+        isLoading
     };
   }

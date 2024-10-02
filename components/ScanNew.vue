@@ -1,7 +1,7 @@
 <script setup>
     const audio = useAudio();
     const openLibrary = useOpenLibrary();
-    const { postData } = usePostData();
+    const { postData, isLoading } = usePostData();
 
     const isbn = ref("");
     const openConfirmations = ref(false);
@@ -52,6 +52,6 @@
             <p class="text-center">Input Value: {{ isbn || "Nothing" }}</p>
         </div>
         </ClientOnly>
-        <LazyUIModal v-if="openConfirmations && book" :book="book" @save="saveBookToSheet" actionName="Add to Store" @close="resetBarcode"/>
+        <LazyUIModal v-if="openConfirmations && book" :book="book" :isLoading="isLoading"  actionName="Add to Store" @save="saveBookToSheet"  @close="resetBarcode"/>
     </div>
 </template>
