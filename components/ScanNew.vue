@@ -31,7 +31,8 @@
           title: book.value?.title,
           isbn: isbn.value,
           author: book.value?.author,
-          published: book.value?.yearPublished?.join(', '),
+          subject: book.value?.subject?.join(', '),
+          published: book.value?.yearPublished.sort()[0]
         });
         emit('bookAdded');
         resetBarcode();
@@ -51,6 +52,6 @@
             <p class="text-center">Input Value: {{ isbn || "Nothing" }}</p>
         </div>
         </ClientOnly>
-        <LazyUIModal v-if="openConfirmations && book" :book="book" :isLoading="isLoading" @save="saveBookToSheet" @close="resetBarcode"/>
+        <LazyUIModal v-if="openConfirmations && book" :book="book" :isLoading="isLoading"  actionName="Add to Store" @save="saveBookToSheet"  @close="resetBarcode"/>
     </div>
 </template>
