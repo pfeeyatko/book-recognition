@@ -4,9 +4,10 @@
 const isbn = ref("");
 const barcodeId = ref("");
 const openConfirmations = ref(false);
-const book = ref(null)
+const book = ref(null);
+
 const refreshBarcodeId = () => {
-  barcodeId.value = useId()
+  barcodeId.value = useId();
 }
 
 let StreamBarcodeReader
@@ -22,7 +23,6 @@ const onDecode = async (bookIsbn) => {
     // get book details from library
     const openLibrary = useOpenLibrary();
     book.value = await openLibrary.search(bookIsbn);
-
     // show modal
     openConfirmations.value = true;
   }
@@ -30,8 +30,13 @@ const onDecode = async (bookIsbn) => {
 
 const saveBookToSheet = () => {
   // save book to sheet
+  resetBarcode();
+}
+
+const resetBarcode = () => {
   openConfirmations.value = false;
   isbn.value = ""
+  book.value = null;
   refreshBarcodeId();
 }
 
@@ -57,7 +62,7 @@ onMounted(() => {
         Input Value: {{ isbn || "Nothing" }}
       </div>
     </ClientOnly>
-    <LazyUIModal v-if="openConfirmations" :book="book" @save="saveBookToSheet"/>
+    <LazyUIModal v-if="openConfirmations && book" :book="book" @save="saveBookToSheet" @cancel="resetBarcode"/>
   </div>
 </template>
 
