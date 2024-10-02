@@ -1,4 +1,5 @@
 <script setup>
+const audio = useAudio();
 const openLibrary = useOpenLibrary();
 const postData = usePostData();
 
@@ -18,7 +19,9 @@ if (process.client) {
 }
 
 const onDecode = async (bookIsbn) => {
-  if(bookIsbn) {
+  audio.beep();
+
+  if (bookIsbn) {
     openConfirmations.value = true;
     isbn.value = bookIsbn;
     // get book details from library
