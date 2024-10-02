@@ -7,6 +7,7 @@ const barcodeId = ref("");
 const openConfirmations = ref(false);
 const book = ref(null);
 
+
 const refreshBarcodeId = () => {
   barcodeId.value = useId();
 }
@@ -18,32 +19,43 @@ if (process.client) {
 }
 
 const onDecode = async (bookIsbn) => {
-  if(bookIsbn) {
-    openConfirmations.value = true;
-    isbn.value = bookIsbn;
-    // get book details from library
+  try {
+    if (bookIsbn) {
+      openConfirmations.value = true;
+      isbn.value = bookIsbn;
 
-    book.value = await openLibrary.search(bookIsbn);
-    // show modal
-    openConfirmations.value = true;
+      // get book details from library
+      book.value = await openLibrary.search(bookIsbn);
+
+      // show modal
+      openConfirmations.value = true;
+    }
+  } catch (error) {
+    console.error("Failed to fetch book details", error);
   }
 }
 
 const saveBookToSheet = () => {
   // save book to sheet
+  openConfirmations.value = false;
   resetBarcode();
 }
 
 const resetBarcode = () => {
-  openConfirmations.value = false;
   isbn.value = ""
   book.value = null;
   refreshBarcodeId();
 }
 
+const closeModal = () => {
+  openConfirmations.value = false;
+  resetBarcode();
+}
+
 onMounted(() => {
   refreshBarcodeId()
 })
+
 </script>
 <template>
   <div class="min-h-screen bg-gray-100">
@@ -58,11 +70,11 @@ onMounted(() => {
     </div>
 
     <ClientOnly>
-      <div class="app max-w-[640px] mx-auto">
-        <StreamBarcodeReader @decode="(a) => onDecode(a)" :key="barcodeId"/>
+      <div class="app max-w-[640px] mx-auto" :key="barcodeId">
+        <StreamBarcodeReader @decode="(a) => onDecode(a)"  />
         Input Value: {{ isbn || "Nothing" }}
       </div>
     </ClientOnly>
-    <LazyUIModal v-if="openConfirmations && book" :book="book" @save="saveBookToSheet" @cancel="resetBarcode"/>
+    <LazyUIModal v-if="openConfirmations && book" :book="book" @save="saveBookToSheet" @close="closeModal"/>
   </div>
 </template>
