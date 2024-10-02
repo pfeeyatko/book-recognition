@@ -1,6 +1,5 @@
 <script setup>
-
-
+const audio = useAudio();
 const isbn = ref("");
 const barcodeId = ref("");
 const openConfirmations = ref(false);
@@ -16,7 +15,9 @@ if (process.client) {
 }
 
 const onDecode = async (bookIsbn) => {
-  if(bookIsbn) {
+  audio.beep();
+
+  if (bookIsbn) {
     openConfirmations.value = true;
     isbn.value = bookIsbn;
     // get book details from library

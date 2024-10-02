@@ -1,6 +1,6 @@
 export default function useOpenLibrary() {
   const search = async (isbn = '') => {
-    const { data, status, error } = await useFetch(`https://openlibrary.org/search.json?isbn=${isbn}`);
+    const { data, status, error } = await $fetch(`https://openlibrary.org/search.json?isbn=${isbn}`);
 
     if (status.value !== 'success' && error.value) {
       return {
