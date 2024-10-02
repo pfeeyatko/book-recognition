@@ -43,6 +43,6 @@
 
 
     </div>
-    <component :is="activeComponent" @bookAdded="activeComponent = null"/>
+    <component :is="activeComponent" @sold="activeComponent = null" @bookAdded="activeComponent = null"/>
   </div>
 </template>

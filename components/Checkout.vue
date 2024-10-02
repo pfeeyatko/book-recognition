@@ -1,13 +1,13 @@
 <script setup>
     const audio = useAudio();
     const openLibrary = useOpenLibrary();
-    const { postData } = usePostData();
+    const { postData, isLoading } = usePostData();
 
     const isbn = ref("");
     const openConfirmations = ref(false);
     const book = ref(null);
 
-    const emit = defineEmits(['bookAdded'])
+    const emit = defineEmits(['sold'])
 
     let StreamBarcodeReader
 
@@ -25,7 +25,7 @@
         }
     }
 
-    const saveBookToSheet = async () => {
+    const markAsSold = async () => {
         // mark as sold
         await postData({
           title: book.value?.title,
@@ -34,7 +34,7 @@
           published: book.value?.yearPublished?.join(', '),
           status: 'sold',
         });
-        emit('bookAdded');
+        emit('sold');
         resetBarcode();
     }
 
@@ -52,6 +52,6 @@
             <p class="text-center">Input Value: {{ isbn || "Nothing" }}</p>
         </div>
         </ClientOnly>
-        <LazyUIModal v-if="openConfirmations && book" :book="book" @save="saveBookToSheet" actionName="Mark as Sold" @close="resetBarcode"/>
+        <LazyUIModal v-if="openConfirmations && book" :book="book" :isLoading="isLoading" @save="markAsSold" actionName="Mark as Sold" @close="resetBarcode"/>
     </div>
 </template>
