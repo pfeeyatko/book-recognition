@@ -1,4 +1,5 @@
 <script setup>
+    const audio = useAudio();
     const openLibrary = useOpenLibrary();
     const postData = usePostData();
 
@@ -18,6 +19,8 @@
     }
 
     const onDecode = async (bookIsbn) => {
+        audio.beep();
+
         if(bookIsbn) {
             openConfirmations.value = true;
             isbn.value = bookIsbn;
@@ -46,7 +49,7 @@
         <ClientOnly>
         <div class="app max-w-[640px] mx-auto">
             <StreamBarcodeReader @decode="(a) => onDecode(a)" :key="barcodeId"/>
-            Input Value: {{ isbn || "Nothing" }}
+            <p class="text-center">Input Value: {{ isbn || "Nothing" }}</p>
         </div>
         </ClientOnly>
         <LazyUIModal v-if="openConfirmations && book" :book="book" @save="saveBookToSheet" @cancel="resetBarcode"/>
