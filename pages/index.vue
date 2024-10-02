@@ -7,63 +7,7 @@
   const setActiveComponent = (component) => {
     activeComponent.value = component;
   }
-const audio = useAudio();
-const openLibrary = useOpenLibrary();
-const postData = usePostData();
 
-const isbn = ref("");
-const barcodeId = ref("");
-const openConfirmations = ref(false);
-const book = ref(null);
-
-const refreshBarcodeId = () => {
-  barcodeId.value = useId();
-}
-
-let StreamBarcodeReader
-
-if (process.client) {
-  StreamBarcodeReader = (await import('vue-barcode-reader')).StreamBarcodeReader
-}
-
-const onDecode = async (bookIsbn) => {
-  try {
-    audio.beep();
-    if (bookIsbn) {
-      openConfirmations.value = true;
-      isbn.value = bookIsbn;
-
-      // get book details from library
-      book.value = await openLibrary.search(bookIsbn);
-
-      // show modal
-      openConfirmations.value = true;
-    }
-  } catch (error) {
-    console.error("Failed to fetch book details", error);
-  }
-}
-
-const saveBookToSheet = () => {
-  // save book to sheet
-  openConfirmations.value = false;
-  resetBarcode();
-}
-
-const resetBarcode = () => {
-  isbn.value = ""
-  book.value = null;
-  refreshBarcodeId();
-}
-
-const closeModal = () => {
-  openConfirmations.value = false;
-  resetBarcode();
-}
-
-onMounted(() => {
-  refreshBarcodeId()
-})
 
 </script>
 <template>
@@ -77,6 +21,6 @@ onMounted(() => {
         <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" @click="setActiveComponent(Checkout)">Checkout</button>
       </div>
     </div>
-    <component :is="activeComponent"/>
+    <component :is="activeComponent" @bookAdded="activeComponent = null"/>
   </div>
 </template>
