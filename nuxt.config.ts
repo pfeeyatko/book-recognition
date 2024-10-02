@@ -9,4 +9,12 @@ export default defineNuxtConfig({
       SHEET_URL: process.env.SHEET_URL,
     },
   },
+  imports: {
+    presets: [
+      {
+        from: 'vue-barcode-reader',
+        imports: ['StreamBarcodeReader']
+      }
+    ]
+  }
 })

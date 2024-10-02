@@ -17,6 +17,7 @@ export default function useOpenLibrary() {
     }
 
     return {
+      error: false,
       title: data.value.docs[0].title, // string
       author: data.value.docs[0].author_name, // array
       yearPublished: data.value.docs[0].publish_year, // array
