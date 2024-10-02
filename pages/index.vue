@@ -1,10 +1,10 @@
 <script setup>
 
-const isbn = ref("");
 
+const isbn = ref("");
 const barcodeId = ref("");
 const openConfirmations = ref(false);
-
+const book = ref(null)
 const refreshBarcodeId = () => {
   barcodeId.value = useId()
 }
@@ -15,12 +15,16 @@ if (process.client) {
   StreamBarcodeReader = (await import('vue-barcode-reader')).StreamBarcodeReader
 }
 
-const onDecode =(bookIsbn) => {
+const onDecode = async (bookIsbn) => {
   if(bookIsbn) {
     openConfirmations.value = true;
     isbn.value = bookIsbn;
     // get book details from library
+    const openLibrary = useOpenLibrary();
+    book.value = await openLibrary.search(bookIsbn);
+
     // show modal
+    openConfirmations.value = true;
   }
 }
 
@@ -53,7 +57,7 @@ onMounted(() => {
         Input Value: {{ isbn || "Nothing" }}
       </div>
     </ClientOnly>
-    <LazyUIModal v-if="openConfirmations" @save="saveBookToSheet"/>
+    <LazyUIModal v-if="openConfirmations" :book="book" @save="saveBookToSheet"/>
   </div>
 </template>
 
