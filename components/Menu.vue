@@ -1,11 +1,13 @@
 <script setup>
-const isMenuOpen = ref(false)
+const config = useRuntimeConfig();
+const SHEET_URL = config.public.SHEET_URL;
+
+const isMenuOpen = ref(false);
 
 const closeMenu = () => {
-  isMenuOpen.value = false
+  isMenuOpen.value = false;
 }
 </script>
-
 
 <style scoped>
 #mobile-menu {
@@ -51,7 +53,7 @@ const closeMenu = () => {
         <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
           <a href="/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-200">Home</a>
           <a href="/bookForm" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-200">Manual Entry</a>
-          <a :href="SHEET_URL" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-200">Inventory</a>
+          <a :href="SHEET_URL" target="_blank" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-200">Inventory</a>
         </div>
       </div>
     </nav>

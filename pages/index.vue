@@ -1,9 +1,6 @@
 <script setup>
-const config = useRuntimeConfig()
 const openLibrary = useOpenLibrary();
 const postData = usePostData();
-
-const SHEET_URL = config.public.SHEET_URL;
 
 const isbn = ref("");
 const barcodeId = ref("");
