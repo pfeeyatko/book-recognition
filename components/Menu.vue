@@ -21,7 +21,7 @@ const closeMenu = () => {
         <div class="flex justify-between h-16">
           <!-- Logo or Brand Name -->
           <div class="flex-shrink-0 flex items-center">
-            <h2 class="text-2xl font-bold text-blue-600">POS System</h2>
+            <h2 class="text-2xl font-bold text-blue-600">BRARS</h2>
           </div>
           
           <!-- Desktop Menu -->

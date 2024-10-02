@@ -6,14 +6,14 @@ export default function useOpenLibrary() {
       if (data.numFound === 0) {
         return {
           error: true,
-          message: `No book with ISBN: ${isbn} found`,
+          message: `No book found with ISBN: ${isbn}`,
         };
       }
 
       return {
-        error: false,
         title: data.docs[0].title, // string
         author: data.docs[0].author_name, // array
+        genre: data.docs[0].subject, // array
         yearPublished: data.docs[0].publish_year, // array
       };
     } catch (error) {
