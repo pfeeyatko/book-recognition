@@ -6,9 +6,10 @@ import { ref } from 'vue'
 const isbn = ref("");
 const barcodeId = ref("");
 const openConfirmations = ref(false);
-const book = ref(null)
+const book = ref(null);
+
 const refreshBarcodeId = () => {
-  barcodeId.value = useId()
+  barcodeId.value = useId();
 }
 
 let StreamBarcodeReader
@@ -36,7 +37,6 @@ const config = useRuntimeConfig()
 <<<<<<< HEAD
 const SHEET_URL = config.public.SHEET_URL;const openLibrary = useOpenLibrary();
     book.value = await openLibrary.search(bookIsbn);
-
     // show modal
     openConfirmations.value = true;
   }
@@ -44,8 +44,13 @@ const SHEET_URL = config.public.SHEET_URL;const openLibrary = useOpenLibrary();
 
 const saveBookToSheet = () => {
   // save book to sheet
+  resetBarcode();
+}
+
+const resetBarcode = () => {
   openConfirmations.value = false;
   isbn.value = ""
+  book.value = null;
   refreshBarcodeId();
 }
 
@@ -123,6 +128,6 @@ const SHEET_URL = config.public.SHEET_URL;
         Input Value: {{ isbn || "Nothing" }}
       </div>
     </ClientOnly>
-    <LazyUIModal v-if="openConfirmations" :book="book" @save="saveBookToSheet"/>
+    <LazyUIModal v-if="openConfirmations && book" :book="book" @save="saveBookToSheet" @cancel="resetBarcode"/>
   </div>
 </template>
