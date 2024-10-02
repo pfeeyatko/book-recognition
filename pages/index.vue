@@ -1,4 +1,12 @@
 <script setup>
+  import ScanNew from '~/components/ScanNew';
+  import Checkout from '~/components/Checkout';
+
+  const activeComponent = shallowRef(null);
+
+  const setActiveComponent = (component) => {
+    activeComponent.value = component;
+  }
 const audio = useAudio();
 const openLibrary = useOpenLibrary();
 const postData = usePostData();
@@ -47,14 +55,6 @@ const resetBarcode = () => {
 onMounted(() => {
   refreshBarcodeId()
 })
-  import ScanNew from '~/components/ScanNew';
-  import Checkout from '~/components/Checkout';
-
-  const activeComponent = shallowRef(null);
-
-  const setActiveComponent = (component) => {
-    activeComponent.value = component;
-  }
 </script>
 <template>
   <div class="min-h-screen bg-gray-100">
