@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     SHEET_SCRIPT_URL: process.env.SHEET_SCRIPT_URL,
     public: {
-      //
+      SHEET_URL: process.env.SHEET_URL,
     },
   },
 })
