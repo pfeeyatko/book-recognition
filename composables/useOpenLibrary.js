@@ -1,27 +1,27 @@
 export default function useOpenLibrary() {
   const search = async (isbn = '') => {
-    const { data, status, error } = await $fetch(`https://openlibrary.org/search.json?isbn=${isbn}`);
+    try {
+      const data = await $fetch(`https://openlibrary.org/search.json?isbn=${isbn}`);
 
-    if (status.value !== 'success' && error.value) {
+      if (data.numFound === 0) {
+        return {
+          error: true,
+          message: `No book with ISBN: ${isbn} found`,
+        };
+      }
+
+      return {
+        error: false,
+        title: data.docs[0].title, // string
+        author: data.docs[0].author_name, // array
+        yearPublished: data.docs[0].publish_year, // array
+      };
+    } catch (error) {
       return {
         error: true,
-        message: error.value.message,
+        message: error.message,
       };
     }
-
-    if (data.value.numFound === 0) {
-      return {
-        error: true,
-        message: `No book with ISBN: ${isbn} found`,
-      }
-    }
-
-    return {
-      error: false,
-      title: data.value.docs[0].title, // string
-      author: data.value.docs[0].author_name, // array
-      yearPublished: data.value.docs[0].publish_year, // array
-    };
   };
 
   return {
