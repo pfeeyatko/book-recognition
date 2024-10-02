@@ -14,13 +14,34 @@
   <div class="min-h-screen bg-gray-100">
     <Menu/>
     <!-- Main Content -->
-    {{ activeComponent }}
     <div class="container mx-auto px-4 py-8">
       <h1 class="text-4xl font-bold text-center mb-8">Book Recognition & Retrieval System</h1>
-      <div class="flex justify-center space-x-4">
-        <button class="text-white font-bold py-2 px-4 rounded" :class="activeComponent['__name'] === 'ScanNew' ? 'text-white bg-blue-500' : 'text-black border-black'" @click="setActiveComponent(ScanNew)">Scan</button>
-        <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" @click="setActiveComponent(Checkout)">Checkout</button>
+
+      <div class="flex justify-center space-x-4 py-4">
+        <!-- Scan Button -->
+        <button
+            class="py-2 px-6 font-medium rounded-lg focus:outline-none transition-colors duration-300"
+            :class="activeComponent && activeComponent['__name'] === 'ScanNew'
+      ? 'bg-blue-500 text-white'
+      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
+            @click="setActiveComponent(ScanNew)"
+        >
+          Scan
+        </button>
+
+        <!-- Checkout Button -->
+        <button
+            class="py-2 px-6 font-medium rounded-lg focus:outline-none transition-colors duration-300"
+            :class="activeComponent && activeComponent['__name'] === 'Checkout'
+      ? 'bg-blue-500 text-white'
+      : 'bg-gray-200 text-gray-700 hover:bg-gray-300'"
+            @click="setActiveComponent(Checkout)"
+        >
+          Checkout
+        </button>
       </div>
+
+
     </div>
     <component :is="activeComponent" @bookAdded="activeComponent = null"/>
   </div>
