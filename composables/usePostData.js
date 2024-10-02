@@ -1,5 +1,3 @@
-import { errorMessages } from "vue/compiler-sfc";
-
 export default function usePostData() {
     const mapDetailsFromOpenLibrary = (bookData) => {
         // map book data to the format required for the sheet
