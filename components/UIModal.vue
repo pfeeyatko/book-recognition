@@ -2,8 +2,6 @@
 import { Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot } from '@headlessui/vue'
 import { CheckCircleIcon, ExclamationTriangleIcon } from '@heroicons/vue/24/outline'
 
-const cancelButtonRef = ref(null)
-
 defineProps({
   book: {
     type: Object,
@@ -11,17 +9,17 @@ defineProps({
   }
 })
 
-const emit = defineEmits(['save', 'cancel'])
+const emit = defineEmits(['save', 'close'])
 
 const closeModal = () => {
-  emit('cancel')
+  emit('close')
 }
 
 </script>
 
 <template>
   <TransitionRoot as="div" :show="true">
-    <Dialog class="relative z-10" @close="emit('cancel')" :open="true">
+    <Dialog class="relative z-10" @close="emit('close')" :open="true">
       <TransitionChild as="div" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100" leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
       </TransitionChild>
@@ -48,7 +46,7 @@ const closeModal = () => {
               </div>
               <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
               <template v-if="book.error">
-                <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="closeModal" ref="cancelButtonRef">Ok</button>
+                <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" @click="closeModal">Ok</button>
               </template>
                 <template v-else>
                   <button type="button" class="inline-flex w-full justify-center rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 sm:ml-3 sm:w-auto" @click="emit('save')">Add to store</button>
