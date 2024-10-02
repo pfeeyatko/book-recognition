@@ -1,5 +1,7 @@
 <script setup>
+const openLibrary = useOpenLibrary();
 
+console.log(await openLibrary.search('9780553283396'));
 </script>
 
 <template>
