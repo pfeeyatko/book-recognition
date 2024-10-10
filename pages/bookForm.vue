@@ -37,9 +37,15 @@ const handleSubmit = async () => {
   isSubmitting.value = false;
 }
 </script>
+
 <template>
   <div class="min-h-screen bg-gray-100">
+    <Head>
+      <Title>Manual Entry</Title>
+    </Head>
+
     <Menu/>
+
     <div class="bg-gray-100 flex items-center justify-center p-4">
       <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
         <div class="py-3 text-center">
@@ -50,12 +56,11 @@ const handleSubmit = async () => {
         <form @submit.prevent="handleSubmit">
           <!-- Book Title -->
           <div class="mb-4">
-            <label for="title" class="block text-gray-700 font-semibold mb-2">Book Title</label>
+            <label for="title" class="block text-gray-700 font-semibold mb-2">Title</label>
             <input
               type="text"
               id="title"
               v-model="form.title"
-              placeholder="Enter book title"
               class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
@@ -68,7 +73,6 @@ const handleSubmit = async () => {
               type="text"
               id="author"
               v-model="form.author"
-              placeholder="Enter author's name"
               class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
@@ -76,9 +80,9 @@ const handleSubmit = async () => {
 
           <!-- Published Date -->
           <div class="mb-4">
-            <label for="published" class="block text-gray-700 font-semibold mb-2">Published Date</label>
+            <label for="published" class="block text-gray-700 font-semibold mb-2">Year Published</label>
             <input
-              type="text"
+              type="number"
               id="published"
               v-model="form.published"
               class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
