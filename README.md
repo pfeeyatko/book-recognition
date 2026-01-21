@@ -42,9 +42,10 @@ This application leverages cutting-edge technology to recognize books from image
 
 ---
 
-## 📦 Installation / Customisation
+## 📦 Installation
 
-[Coming soon]
+`npm install`
+`npx nuxt dev`
 
 ---
 
